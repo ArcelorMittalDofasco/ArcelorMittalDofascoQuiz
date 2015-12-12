@@ -1,0 +1,32 @@
+<% provide(:title, "Start Quiz!") %>
+
+<%= form_for @user, url: {action: "create"} do |user_form| %>
+
+	<% if @user.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@user.errors.count, "error") %> prohibited this post from being saved:</h2>
+			<ul>
+				<% @user.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+				<% end %>
+			</ul>
+			</div>
+	<% end %>
+
+
+
+ 	<%= user_form.text_field :name %><br/>
+	<%= user_form.text_field :email %><br/>
+
+	<% @questions.each do |question| %>
+		<%= user_form.fields_for :user_answers, @user_answers do |user_answer_form|%>
+		
+			<%= question.question %><br/>
+			<%= user_answer_form.collection_radio_buttons question.id, question.answers.all, :id, :answer %><br/>
+		<% end %>
+	<% end%>
+	
+	<%= submit_tag("Submit quiz") %>
+
+
+<% end %>

@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-sm-4"><%= image_tag("logo.gif", class: "") %></div>
+  <div class="col-sm-8"><%= image_tag("AMD0211_13.jpg", class: "coil") %></div>
+</div>
+<div ng-controller="MainController">
+
+
+	<form ng-submit="submit()">	
+		
+	    <div class="form-group">
+	      <label for="name">Name</label>
+	      <input type="text" name="name" id="name" ng-model="name" class="form-control" placeholder="Name">
+	    </div>
+		
+	    <div class="form-group">
+	      <label for="email">Email</label>
+	      <input type="text" name="email" id="email" ng-model="email" class="form-control" placeholder="Email">
+	    </div>
+	
+		<div class="radio" ng-repeat="question in questions">
+			{{question.question}}
+			<label class="radio" ng-repeat="answer in question.answers">
+				<input class="radio" type="radio" name="{{question.id}}" value="{{answer.id}}" ng-click="select_answer(question.id, answer.id)">{{answer.answer}}
+			</label>
+		</div>
+		<input type="submit" value="Submit" class="btn btn-lg btn-primary">
+	</form>
+	
+</div>
