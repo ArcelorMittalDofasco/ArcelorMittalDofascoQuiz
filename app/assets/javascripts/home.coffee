@@ -11,6 +11,7 @@ quiz.config ["$httpProvider", ($httpProvider) ->
 quiz.controller 'MainController', ($scope, $http) ->
 	header = {'Accept': 'application/json'}
 	form_data = {user: {name: "", email: ""}, user_answers: {}}
+	$scope.errors = []
 	
 	$http 
 		method: 'GET'
@@ -29,29 +30,49 @@ quiz.controller 'MainController', ($scope, $http) ->
 	$scope.submit = ->
 		form_data["user"] = {"name": $scope.name, "email": $scope.email}
 		
-		$http 
-			method: 'POST'
-			url: '/user_answers'
-			data: form_data
-			headers: header
-		.then(
-			((response)-> 
-				response.data
+		$scope.errors = []
+		if $scope.name == undefined
+			$scope.errors.push "Please enter a name"
+		if $scope.email == undefined
+			$scope.errors.push "Please enter an e-mail address"
 			
+		validate_answer question for question in $scope.questions
+		
+		if $scope.errors.length
+			console.log "errors"
+		else		
+			$http 
+				method: 'POST'
+				url: '/user_answers'
+				data: form_data
+				headers: header
+			.then(
+				((response)-> 
+					console.log response.data
+					window.location = '/users/' + response.data.id + '/user_answers/'
+			
+				)
+				((response)-> 
+					console.log response
+				)	
 			)
-			((response)-> 
-				console.log response
-			)	
-		)
 		
 	$scope.select_answer = (question, answer)->
 		form_data["user_answers"][question] = {"question": question, "answer": answer}
 		console.log(form_data)
 		
+	validate_answer = (question) ->
+		if !form_data["user_answers"].hasOwnProperty(question.id)
+			$scope.errors.push "Please answer question '" + question.question + "'"
+		
 		
 	return
 	
-	
+quiz.controller 'CompleteController', ($scope, $http) ->
+	header = {'Accept': 'application/json'}
+		
+		
+	return
 
 		
 		

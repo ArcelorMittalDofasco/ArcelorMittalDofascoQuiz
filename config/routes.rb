@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   resources :questions do
     resources :answers
   end
-  resources :users
+  
+  resources :users do
+    resources :user_answers
+  end
   
   root 'home#index'
   

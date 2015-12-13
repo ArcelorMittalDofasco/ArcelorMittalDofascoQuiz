@@ -1,9 +1,8 @@
-<div class="row">
-  <div class="col-sm-4"><%= image_tag("logo.gif", class: "") %></div>
-  <div class="col-sm-8"><%= image_tag("AMD0211_13.jpg", class: "coil") %></div>
-</div>
-<div ng-controller="MainController">
 
+<div ng-controller="MainController">
+	<ul class="errors">
+		<li ng-repeat="error in errors">{{error}}</li>
+	</ul>
 
 	<form ng-submit="submit()">	
 		
