@@ -12,6 +12,10 @@ quiz.controller 'MainController', ($scope, $http) ->
 	header = {'Accept': 'application/json'}
 	form_data = {user: {name: "", email: ""}, user_answers: {}}
 	$scope.errors = []
+	$scope.current_question_index = 0
+	$scope.current_question_id = 0
+	$scope.show_submit = false
+	$scope.show_contact = false
 	
 	$http 
 		method: 'GET'
@@ -20,7 +24,7 @@ quiz.controller 'MainController', ($scope, $http) ->
 	.then(
 		((response)-> 
 			$scope.questions = response.data
-			
+			$scope.current_question_id = $scope.questions[$scope.current_question_index].id
 		)
 		((response)-> 
 			console.log response
@@ -48,7 +52,6 @@ quiz.controller 'MainController', ($scope, $http) ->
 				headers: header
 			.then(
 				((response)-> 
-					console.log response.data
 					window.location = '/users/' + response.data.id + '/user_answers/'
 			
 				)
@@ -60,7 +63,23 @@ quiz.controller 'MainController', ($scope, $http) ->
 	$scope.select_answer = (question, answer)->
 		form_data["user_answers"][question] = {"question": question, "answer": answer}
 		console.log(form_data)
+	
+	$scope.next = ->
+		if $scope.current_question_index == $scope.questions.length - 1
+			$scope.show_submit = true
+			$scope.show_contact = true	
+		else
+			if(form_data["user_answers"][$scope.current_question_id] == undefined)
+				$scope.errors.push "Please answer the question"
+			else
+				$scope.errors = []
+				$scope.current_question_id = $scope.questions[++$scope.current_question_index].id
 		
+		
+		
+		console.log($scope.current_question_id)
+	
+	
 	validate_answer = (question) ->
 		if !form_data["user_answers"].hasOwnProperty(question.id)
 			$scope.errors.push "Please answer question '" + question.question + "'"

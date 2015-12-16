@@ -17,6 +17,11 @@
 .container
 {
 	margin-top: 20px;
+	margin-bottom:20px;
+	background: rgba(255,255,255,0.75);
+	padding: 10px 10px 10px 10px;
+	height: 500px;
+
 }
 
 .coil
@@ -27,4 +32,30 @@
 ul li.errors
 {
 	color:red;
+}
+
+.logo
+{
+	opacity: 0.4;
+}
+
+body
+{
+	background: image-url("AMD0211_13.jpg");
+}
+
+.controller
+{
+	padding-top:20px;
+}
+
+.question
+{
+	font-size: 2.0em;
+}
+
+
+label
+{
+	font-size: 1.5em;
 }

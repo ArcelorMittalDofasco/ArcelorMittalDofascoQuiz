@@ -1,28 +1,33 @@
 
-<div ng-controller="MainController">
+<div ng-controller="MainController" class="controller">
 	<ul class="errors">
 		<li ng-repeat="error in errors">{{error}}</li>
 	</ul>
 
 	<form ng-submit="submit()">	
-		
-	    <div class="form-group">
-	      <label for="name">Name</label>
-	      <input type="text" name="name" id="name" ng-model="name" class="form-control" placeholder="Name">
-	    </div>
-		
-	    <div class="form-group">
-	      <label for="email">Email</label>
-	      <input type="text" name="email" id="email" ng-model="email" class="form-control" placeholder="Email">
-	    </div>
-	
-		<div class="radio" ng-repeat="question in questions">
-			{{question.question}}
+		<div class="radio" ng-repeat="question in questions" ng-if="question.id == current_question_id" ng-hide="show_submit">
+			<span class="question">{{question.question}}</span>
 			<label class="radio" ng-repeat="answer in question.answers">
 				<input class="radio" type="radio" name="{{question.id}}" value="{{answer.id}}" ng-click="select_answer(question.id, answer.id)">{{answer.answer}}
 			</label>
 		</div>
-		<input type="submit" value="Submit" class="btn btn-lg btn-primary">
+		
+		<a href ng-click="next()" class="btn btn-lg btn-primary" ng-hide="show_submit">Next Question</a>
+		
+		<div ng-show="show_contact">
+		    <div class="form-group">
+		      <label for="name">Name</label>
+		      <input type="text" name="name" id="name" ng-model="name" class="form-control" placeholder="Name">
+		    </div>
+		
+		    <div class="form-group">
+		      <label for="email">Email</label>
+		      <input type="text" name="email" id="email" ng-model="email" class="form-control" placeholder="Email">
+		    </div>
+		</div>
+		
+		
+		<input type="submit" value="Submit" class="btn btn-lg btn-primary" ng-show="show_submit">
 	</form>
 	
 </div>
