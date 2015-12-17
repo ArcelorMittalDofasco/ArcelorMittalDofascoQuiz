@@ -62,8 +62,11 @@ ul li.errors
   
     display: block;
 	background: image-url("AMD0512_233a.jpg");
-	width: 2000px;    
+	background-size: 20;
     height: 3500px;
+	background-size:2000px;
+	background-repeat: no-repeat;
+	
 	/*
     -webkit-filter: blur(2px);
     -moz-filter: blur(2px);
