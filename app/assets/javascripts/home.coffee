@@ -52,7 +52,11 @@ quiz.controller 'MainController', ($scope, $http) ->
 				headers: header
 			.then(
 				((response)-> 
-					window.location = '/users/' + response.data.id + '/user_answers/'
+					console.log response
+					if response.data.name[0] == "has already been taken" || response.data.email[0] == "has already been taken"
+						window.location = '/thanks/'
+					else	
+						window.location = '/users/' + response.data.id + '/user_answers/'
 			
 				)
 				((response)-> 
