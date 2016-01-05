@@ -33,12 +33,15 @@ quiz.controller 'MainController', ($scope, $http) ->
 	
 	$scope.submit = ->
 		form_data["user"] = {"name": $scope.name, "email": $scope.email}
+		re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+			
 		
 		$scope.errors = []
 		if $scope.name == undefined
 			$scope.errors.push "Please enter a name"
-		if $scope.email == undefined
-			$scope.errors.push "Please enter an e-mail address"
+		if re.test($scope.name) == false
+			$scope.errors.push "Please enter a valid e-mail address"
+			
 			
 		validate_answer question for question in $scope.questions
 		
