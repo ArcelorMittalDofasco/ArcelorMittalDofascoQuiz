@@ -2,18 +2,17 @@ class UserAnswersController < ApplicationController
   
   def index
     @score = 0
+    @total = 0
     @user = User.find(params[:user_id])
     @questions = Question.all
     
-    @questions.map do |question|
-      if @user.user_answers.find_by(question_id: question.id)[:answer_id] == question.answers.find_by(correct: 1)[:id]
-        @score += 1
-      end
+    @user.user_answers.all.map do |answer|
+	if answer.answer.correct == true
+		@score += 1
+	end
+	@total += 1
     end
-    
 
-    
-    
   end
   
   def new
