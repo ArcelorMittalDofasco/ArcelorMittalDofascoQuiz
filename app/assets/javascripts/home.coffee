@@ -76,12 +76,12 @@ quiz.controller 'MainController', ($scope, $http) ->
 		console.log(form_data)
 	
 	$scope.next = ->
-		$scope.answered = true
-		$scope.disable_radio = true
-		$scope.show_submit_question = false
 		if(form_data["user_answers"][$scope.current_question_id] == undefined)
 			$scope.errors.push "Please answer the question"
 		else
+			$scope.disable_radio = true
+			$scope.show_submit_question = false
+			$scope.answered = true
 			$scope.correct = false
 			$scope.correct_answer = (answer for answer in $scope.questions[$scope.current_question_id-1]["answers"] when answer.correct == true)[0]
 			if  form_data["user_answers"][$scope.current_question_id]["answer"] == $scope.correct_answer.id 
