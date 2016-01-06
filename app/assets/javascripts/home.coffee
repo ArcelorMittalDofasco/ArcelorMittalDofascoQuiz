@@ -77,6 +77,7 @@ quiz.controller 'MainController', ($scope, $http) ->
 	
 	$scope.next = ->
 		$scope.answered = true
+		$scope.disable_radio = true
 		$scope.show_submit_question = false
 		if(form_data["user_answers"][$scope.current_question_id] == undefined)
 			$scope.errors.push "Please answer the question"
@@ -94,6 +95,7 @@ quiz.controller 'MainController', ($scope, $http) ->
 			$scope.show_last  = true
 				
 	$scope.next_question = ->
+		$scope.disable_radio = false
 		$scope.current_question_id = $scope.questions[++$scope.current_question_index].id
 		$scope.answered=false
 		$scope.show_submit_question = true
@@ -103,6 +105,8 @@ quiz.controller 'MainController', ($scope, $http) ->
 		$scope.show_form = false
 		$scope.show_contact = true
 		$scope.show_last = false
+		$scope.answered = false
+		$scope.show_submit = true
 		
 	
 	validate_answer = (question) ->
