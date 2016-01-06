@@ -14,8 +14,12 @@ quiz.controller 'MainController', ($scope, $http) ->
 	$scope.errors = []
 	$scope.current_question_index = 0
 	$scope.current_question_id = 0
+	$scope.show_next = true
+	$scope.show_submit_question = true
 	$scope.show_submit = false
 	$scope.show_contact = false
+	$scope.answered = false
+	$scope.show_form = true
 	
 	$http 
 		method: 'GET'
@@ -39,7 +43,7 @@ quiz.controller 'MainController', ($scope, $http) ->
 		$scope.errors = []
 		if $scope.name == undefined
 			$scope.errors.push "Please enter a name"
-		if re.test($scope.name) == false
+		if re.test($scope.email) == false
 			$scope.errors.push "Please enter a valid e-mail address"
 			
 			
@@ -72,20 +76,34 @@ quiz.controller 'MainController', ($scope, $http) ->
 		console.log(form_data)
 	
 	$scope.next = ->
-		if $scope.current_question_index == $scope.questions.length - 1
-			$scope.show_submit = true
-			$scope.show_contact = true	
+		$scope.answered = true
+		$scope.show_submit_question = false
+		if(form_data["user_answers"][$scope.current_question_id] == undefined)
+			$scope.errors.push "Please answer the question"
 		else
-			if(form_data["user_answers"][$scope.current_question_id] == undefined)
-				$scope.errors.push "Please answer the question"
-			else
+			$scope.correct = false
+			$scope.correct_answer = (answer for answer in $scope.questions[$scope.current_question_id-1]["answers"] when answer.correct == true)[0]
+			if  form_data["user_answers"][$scope.current_question_id]["answer"] == $scope.correct_answer.id 
+				$scope.correct = true
+				$scope.answered = true				
 				$scope.errors = []
-				$scope.current_question_id = $scope.questions[++$scope.current_question_index].id
-		
-		
-		
+				
 		console.log($scope.current_question_id)
-	
+		if $scope.current_question_index == $scope.questions.length - 1
+			$scope.show_next = false
+			$scope.show_last  = true
+				
+	$scope.next_question = ->
+		$scope.current_question_id = $scope.questions[++$scope.current_question_index].id
+		$scope.answered=false
+		$scope.show_submit_question = true
+		return
+
+	$scope.finish = ->
+		$scope.show_form = false
+		$scope.show_contact = true
+		$scope.show_last = false
+		
 	
 	validate_answer = (question) ->
 		if !form_data["user_answers"].hasOwnProperty(question.id)
