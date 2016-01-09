@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   def index
-    @questions = Question.all
+    @questions = Question.order("RANDOM()").limit(5)
     
     respond_to do |format|
         format.html { render action: 'new' }

@@ -83,7 +83,7 @@ quiz.controller 'MainController', ($scope, $http) ->
 			$scope.show_submit_question = false
 			$scope.answered = true
 			$scope.correct = false
-			$scope.correct_answer = (answer for answer in $scope.questions[$scope.current_question_id-1]["answers"] when answer.correct == true)[0]
+			$scope.correct_answer = (answer for answer in $scope.questions[$scope.current_question_index]["answers"] when answer.correct == true)[0]
 			if  form_data["user_answers"][$scope.current_question_id]["answer"] == $scope.correct_answer.id 
 				$scope.correct = true
 				$scope.answered = true				
