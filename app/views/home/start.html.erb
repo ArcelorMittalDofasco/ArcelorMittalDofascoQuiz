@@ -4,8 +4,8 @@
 	</ul>
 
 	<div ng-show="answered">
-		<div ng-show="correct">You are correct!</div>
-		<div ng-hide="correct">The correct answer is "{{correct_answer.answer}}"</div>	
+		<div ng-show="correct" class="alert alert-success" role="alert">You are correct!</div>
+		<div ng-hide="correct" class="alert alert-danger" role="alert">The correct answer is "{{correct_answer.answer}}"</div>	
 	</div>
 
 	<form ng-submit="submit()">	
