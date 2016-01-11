@@ -87,7 +87,7 @@ quiz.controller 'MainController', ($scope, $http) ->
 			if  form_data["user_answers"][$scope.current_question_id]["answer"] == $scope.correct_answer.id 
 				$scope.correct = true
 				$scope.answered = true				
-				$scope.errors = []
+			$scope.errors = []
 				
 		console.log($scope.current_question_id)
 		if $scope.current_question_index == $scope.questions.length - 1
