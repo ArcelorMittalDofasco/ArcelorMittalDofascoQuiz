@@ -76,6 +76,7 @@ quiz.controller 'MainController', ($scope, $http) ->
 		console.log(form_data)
 	
 	$scope.next = ->
+		$scope.errors = []
 		if(form_data["user_answers"][$scope.current_question_id] == undefined)
 			$scope.errors.push "Please answer the question"
 		else
@@ -87,10 +88,11 @@ quiz.controller 'MainController', ($scope, $http) ->
 			if  form_data["user_answers"][$scope.current_question_id]["answer"] == $scope.correct_answer.id 
 				$scope.correct = true
 				$scope.answered = true				
-			$scope.errors = []
+			
+
 				
 		console.log($scope.current_question_id)
-		if $scope.current_question_index == $scope.questions.length - 1
+		if $scope.errors.length == 0 && $scope.current_question_index == $scope.questions.length - 1
 			$scope.show_next = false
 			$scope.show_last  = true
 				
