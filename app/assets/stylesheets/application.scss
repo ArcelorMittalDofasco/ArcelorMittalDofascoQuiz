@@ -18,11 +18,10 @@
 {
 
 
-    position: fixed;
     left: 0;
     right: 0;
     z-index: 0;
-	width: 100%;
+    width: 100%;
 
 }
 
@@ -58,6 +57,7 @@ ul li.errors
     left: 0;
     right: 0;
     z-index: -1;
+    top: -20px
   
     display: block;
 	background: image-url("AMD0512_233a.jpg");
