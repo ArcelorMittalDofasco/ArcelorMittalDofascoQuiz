@@ -1,3 +1,3 @@
 == README
 
-This quiz application was developed by ArcelorMittal Dofasco for the use in conferences. You are welcome to take it and modify it for your own purposes.
+This quiz application was developed by ArcelorMittal Dofasco for the use in conferences.
